@@ -9,7 +9,6 @@ import { signIn, signOut, useSession } from "next-auth/react";
 function Navbar() {
   const { data: session } = useSession();
   const [isOpen, setIsOpen] = useState(false);
-
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
     if (!session) {
@@ -65,16 +64,20 @@ function Navbar() {
                   {session ? (
                     <>
                       <div className="flex items-center space-x-2">
-                      <div className="h-8 w-8 rounded-full">
-                        <Image
-                          src={session?.user?.image || ""}
-                          width={200}
-                          height={200}
-                          alt="Profile Picture"
-                          className="rounded-full h-full w-full object-contain"
-                        />
-                      </div>
-                      <p>{session?.user?.name.length > 8 ? session?.user?.name.substring(0, 8) + "..." : session?.user?.name}</p>
+                        <div className="h-8 w-8 rounded-full">
+                          <Image
+                            src={session?.user?.image || ""}
+                            width={200}
+                            height={200}
+                            alt="Profile Picture"
+                            className="rounded-full h-full w-full object-contain"
+                          />
+                        </div>
+                        <p>
+                          {session?.user?.name && session.user.name.length > 8
+                            ? (session.user.name.substring(0, 8) ?? "") + "..."
+                            : session?.user?.name ?? ""}
+                        </p>
                       </div>
                     </>
                   ) : (
@@ -92,11 +95,11 @@ function Navbar() {
                       {session ? (
                         <>
                           <button
-                          disabled={status === "loading"}
-                            onClick={()=>signOut()}
+                            disabled={status === "loading"}
+                            onClick={() => signOut()}
                             className=" px-4 py-2 text-gray-700   flex items-center w-full "
                           >
-                             <FaSignOutAlt className="mr-2" />
+                            <FaSignOutAlt className="mr-2" />
                             Signout
                           </button>
                         </>
