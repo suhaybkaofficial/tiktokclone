@@ -25,7 +25,7 @@ function Login() {
         >
           Sign In
         </button>
-        <p>Next Auth & Firebase Authentication</p>
+        <p>Next Auth & Firebase Authentication  </p>
        </div>
       </div>
   );
